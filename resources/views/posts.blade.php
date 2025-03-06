@@ -5,4 +5,6 @@
         </flux:subheading>
         <flux:separator variant="subtle" />
     </div>
+
+    <livewire:posts>
 </x-layouts.app>
