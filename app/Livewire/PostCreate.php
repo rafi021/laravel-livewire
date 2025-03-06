@@ -31,6 +31,7 @@ class PostCreate extends Component
         ]);
         $this->resetForm();
         Flux::modal('create-post')->close();
+        $this->dispatch('reloadPosts');
     }
     public function resetForm()
     {
