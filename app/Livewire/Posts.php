@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Post;
+use Flux\Flux;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
@@ -10,6 +11,7 @@ use Livewire\Attributes\On;
 class Posts extends Component
 {
     use WithPagination;
+    public $postId;
 
     public function render()
     {
@@ -22,5 +24,21 @@ class Posts extends Component
     public function reloadPosts()
     {
         $this->render();
+    }
+
+    public function edit($id)
+    {
+        $this->dispatch('editPost', $id);
+    }
+    public function delete($id)
+    {
+        Flux::modal('delete-post')->show();
+        $this->postId = $id;
+    }
+    public function deletePost()
+    {
+        Post::find($this->postId)->delete();
+        Flux::modal('delete-post')->close();
+        $this->reloadPosts();
     }
 }
